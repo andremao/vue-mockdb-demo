@@ -1,4 +1,4 @@
-const service = require('@andremao/mockdb').service('user');
+const service = require('@andremao/mockdb').service('user.json');
 const mockjs = require('mockjs');
 
 module.exports = {

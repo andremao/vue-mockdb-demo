@@ -1,5 +1,5 @@
 const mockjs = require('mockjs');
-const service = require('@andremao/mockdb').service('goods');
+const service = require('@andremao/mockdb').service('goods.json');
 
 module.exports = {
   requests: [
