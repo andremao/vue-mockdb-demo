@@ -123,7 +123,12 @@ export default {
         }
       }
       // /把为空字符串的过滤掉
-      this.loadList();
+
+      if (this.page !== 1) {
+        this.page = 1;
+      } else {
+        this.loadList();
+      }
     },
     async updateUser() {
       const { id, ...data } = this.updateForm;

@@ -1,28 +1,8 @@
 const service = require('@andremao/mockdb').service('user');
+const mockjs = require('mockjs');
 
 module.exports = {
   requests: [
-    {
-      type: 'get',
-      url: '/user/list',
-      handle(req, res) {
-        console.log(req.query, 'req.query');
-        const { page, size, name, age, ageType } = req.query;
-        const conditions = {};
-        if (name) {
-          conditions.like = { name };
-        }
-        if (age != null) {
-          conditions[ageType] = { age: parseInt(age) };
-        }
-        const result = service.pagedQuery({ page, size, ...conditions });
-        res.json({
-          code: 200,
-          message: 'ok',
-          ...result,
-        });
-      },
-    },
     {
       type: 'post',
       url: '/user/create',
@@ -58,6 +38,39 @@ module.exports = {
           code: 200,
           message: 'ok',
           user: service.patchUpdate(req.params.id, req.body),
+        });
+      },
+    },
+    {
+      type: 'get',
+      url: '/user/list',
+      handle(req, res) {
+        console.log(req.query, 'req.query');
+
+        // 如果json文件中没有数据，则自动生成100条
+        const { list } = service.getState();
+        if (!list || !list.length) {
+          service.insert(
+            mockjs.mock({
+              'list|100': [{ name: '@CNAME()', 'age|15-60': 1, id: '@GUID()' }],
+            }).list,
+          );
+        }
+        // /如果json文件中没有数据，则自动生成100条
+
+        const { page, size, name, age, ageType } = req.query;
+        const conditions = {};
+        if (name) {
+          conditions.like = { name };
+        }
+        if (age != null) {
+          conditions[ageType] = { age: parseInt(age) };
+        }
+        const result = service.pagedQuery({ page, size, ...conditions });
+        res.json({
+          code: 200,
+          message: 'ok',
+          ...result,
         });
       },
     },
