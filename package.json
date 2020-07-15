@@ -1,6 +1,6 @@
 {
-  "name": "vue-mockjs-config-lowdb-demo",
-  "version": "0.1.0",
+  "name": "vue-mockdb-demo",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -14,13 +14,10 @@
     "vue-router": "^3.2.0"
   },
   "devDependencies": {
-    "@andremao/mockjs-config": "^1.1.2",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-router": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
     "body-parser": "^1.19.0",
-    "lowdb": "^1.0.0",
-    "mockjs": "^1.1.0",
     "vue-template-compiler": "^2.6.11"
   }
 }

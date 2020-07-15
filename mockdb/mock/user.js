@@ -1,4 +1,4 @@
-const service = require('../lowdb/service/user');
+const service = require('@andremao/mockdb').service('user');
 
 module.exports = {
   requests: [
@@ -6,10 +6,20 @@ module.exports = {
       type: 'get',
       url: '/user/list',
       handle(req, res) {
+        console.log(req.query, 'req.query');
+        const { page, size, name, age, ageType } = req.query;
+        const conditions = {};
+        if (name) {
+          conditions.like = { name };
+        }
+        if (age != null) {
+          conditions[ageType] = { age: parseInt(age) };
+        }
+        const result = service.pagedQuery({ page, size, ...conditions });
         res.json({
           code: 200,
           message: 'ok',
-          ...service.pagedQuery(req.query),
+          ...result,
         });
       },
     },
@@ -17,7 +27,8 @@ module.exports = {
       type: 'post',
       url: '/user/create',
       handle(req, res) {
-        const user = service.create(req.body);
+        console.log(req.body, 'req.body');
+        const user = service.insert(req.body);
         res.json({
           code: 200,
           message: 'ok',
