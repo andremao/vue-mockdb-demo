@@ -1,8 +1,8 @@
 import axios from 'axios';
 import Vue from 'vue';
 
-const requester = axios.create({
+const request = axios.create({
   baseURL: 'http://localhost:8080',
 });
 
-Vue.prototype.$axios = requester;
+Vue.prototype.$request = request;

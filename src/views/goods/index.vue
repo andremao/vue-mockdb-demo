@@ -16,7 +16,7 @@ export default {
     };
   },
   async mounted() {
-    const { data: res } = await this.$axios.get('/goods/list');
+    const { data: res } = await this.$request.get('/goodses');
     console.log(res);
     this.list = res.data;
   },

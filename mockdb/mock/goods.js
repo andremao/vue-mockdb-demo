@@ -1,11 +1,11 @@
-const mockjs = require('mockjs');
 const service = require('@andremao/mockdb').service('goods.json');
+const mockjs = require('mockjs');
 
 module.exports = {
   requests: [
     {
       type: 'get',
-      url: '/goods/list',
+      url: '/goodses',
       handle(req, res) {
         const { list } = service.getState();
 
@@ -21,7 +21,7 @@ module.exports = {
         }
         // /如果json文件中没有数据，则自动生成100条
 
-        const result = service.pagedQuery({ page: 1, size: 100 });
+        const result = service.pagingQuery({ page: 1, size: 100 });
 
         res.json({
           code: 200,

@@ -20,13 +20,16 @@
     <h2>List Data</h2>
     <div style="padding: 0 20px;">
       <form @submit.prevent="search()">
-        搜索条件：
-        name:
-        <input type="text" v-model.trim="searchForm.name" placeholder="请输入姓名..." />
-        &nbsp;&nbsp;
-        age:
+        搜索条件： name:
+        <input
+          type="text"
+          v-model.trim="searchForm.name"
+          placeholder="请输入姓名..."
+        />
+        &nbsp;&nbsp; age:
         <select v-model="searchForm.ageType">
           <option value="eq" selected>=</option>
+          <option value="ne">!=</option>
           <option value="gt">&gt;</option>
           <option value="lt">&lt;</option>
           <option value="ge">&ge;</option>
@@ -44,16 +47,13 @@
     </div>
     <div v-if="users.length" style="padding: 20px;">
       <div v-for="(v, i) in users" :key="v.id">
-        {{ i }}, {{ v }}，
-        <a href @click.prevent="delUser(v)">删除</a>，
+        {{ i }}, {{ v }}， <a href @click.prevent="delUser(v)">删除</a>，
         <a href @click.prevent="toEditUser(v)">编辑</a>
       </div>
     </div>
     <div v-if="!users.length" style="padding: 20px; color: #ccc;">暂无数据</div>
     <div style="padding: 0 20px;">
-      第{{ page }}页，
-      共{{ sizes }}页，
-      每页
+      第{{ page }}页， 共{{ sizes }}页， 每页
       <select v-model="size">
         <option value="5">5</option>
         <option value="10">10</option>
@@ -61,9 +61,7 @@
         <option value="50">50</option>
         <option value="100">100</option>
       </select>
-      条，
-      共{{ total }}条，
-      <a href @click.prevent="prevPage()">上一页</a>，
+      条， 共{{ total }}条， <a href @click.prevent="prevPage()">上一页</a>，
       <a href @click.prevent="nextPage()">下一页</a>
     </div>
   </div>
@@ -132,7 +130,7 @@ export default {
     },
     async updateUser() {
       const { id, ...data } = this.updateForm;
-      const { data: res } = await this.$axios.patch(`/user/${id}`, data);
+      const { data: res } = await this.$request.patch(`/user/${id}`, data);
       console.log(res);
       this.loadList();
     },
@@ -140,7 +138,7 @@ export default {
       this.updateForm = cloneDeep(user);
     },
     async delUser(user) {
-      const { data: res } = await this.$axios.delete(`/user/${user.id}`);
+      const { data: res } = await this.$request.delete(`/user/${user.id}`);
       console.log(res);
       if (this.users.length <= 1 && this.page > 1) {
         this.page--;
@@ -159,16 +157,13 @@ export default {
       }
     },
     async createUser() {
-      const { data: res } = await this.$axios.post(
-        '/user/create',
-        this.createForm,
-      );
+      const { data: res } = await this.$request.post('/user', this.createForm);
       console.log(res);
       this.createForm = {};
       this.loadList();
     },
     async loadList() {
-      const { data: res } = await this.$axios.get('/user/list', {
+      const { data: res } = await this.$request.get('/users', {
         params: {
           page: this.page,
           size: this.size,
