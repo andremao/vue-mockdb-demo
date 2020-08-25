@@ -8,7 +8,7 @@ module.exports = {
       url: '/user',
       handler(req, res) {
         console.log(req.body, 'req.body');
-        const user = service.insert(req.body);
+        const user = service.create(req.body);
         res.json({
           code: 200,
           message: 'ok',
@@ -37,7 +37,7 @@ module.exports = {
         res.json({
           code: 200,
           message: 'ok',
-          user: service.patchUpdate(req.params.id, req.body),
+          user: service.patch(req.params.id, req.body),
         });
       },
     },
