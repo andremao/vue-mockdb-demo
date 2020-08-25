@@ -4,9 +4,9 @@ const mockjs = require('mockjs');
 module.exports = {
   requests: [
     {
-      type: 'post',
+      method: 'post',
       url: '/user',
-      handle(req, res) {
+      handler(req, res) {
         console.log(req.body, 'req.body');
         const user = service.insert(req.body);
         res.json({
@@ -17,9 +17,9 @@ module.exports = {
       },
     },
     {
-      type: 'delete',
+      method: 'delete',
       url: '/user/:id',
-      handle(req, res) {
+      handler(req, res) {
         console.log(req.params, 'req.params');
         res.json({
           code: 200,
@@ -29,9 +29,9 @@ module.exports = {
       },
     },
     {
-      type: 'patch',
+      method: 'patch',
       url: '/user/:id',
-      handle(req, res) {
+      handler(req, res) {
         console.log(req.params, 'req.params');
         console.log(req.body, 'req.body');
         res.json({
@@ -42,9 +42,9 @@ module.exports = {
       },
     },
     {
-      type: 'get',
+      method: 'get',
       url: '/users',
-      handle(req, res) {
+      handler(req, res) {
         console.log(req.query, 'req.query');
 
         // // 如果json文件中没有数据，则自动生成100条

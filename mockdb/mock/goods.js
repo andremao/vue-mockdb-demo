@@ -4,9 +4,9 @@ const mockjs = require('mockjs');
 module.exports = {
   requests: [
     {
-      type: 'get',
+      method: 'get',
       url: '/goodses',
-      handle(req, res) {
+      handler(req, res) {
         const { list } = service.getState();
 
         // 如果json文件中没有数据，则自动生成100条
