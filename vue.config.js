@@ -9,5 +9,14 @@ module.exports = {
         app.use(bodyParser.json(), mockdb.middleware());
       }
     },
+    proxy: {
+      '/api': {
+        target: 'http://some.api.itcast.cn',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '',
+        },
+      },
+    },
   },
 };

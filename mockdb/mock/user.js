@@ -5,7 +5,7 @@ module.exports = {
   requests: [
     {
       method: 'post',
-      url: '/user',
+      url: '/api/user',
       handler(req, res) {
         console.log(req.body, 'req.body');
         const user = service.create(req.body);
@@ -17,8 +17,9 @@ module.exports = {
       },
     },
     {
+      active: false, // 未激活
       method: 'delete',
-      url: '/user/:id',
+      url: '/api/user/:id',
       handler(req, res) {
         console.log(req.params, 'req.params');
         res.json({
@@ -30,7 +31,7 @@ module.exports = {
     },
     {
       method: 'patch',
-      url: '/user/:id',
+      url: '/api/user/:id',
       handler(req, res) {
         console.log(req.params, 'req.params');
         console.log(req.body, 'req.body');
@@ -43,7 +44,7 @@ module.exports = {
     },
     {
       method: 'get',
-      url: '/users',
+      url: '/api/users',
       handler(req, res) {
         console.log(req.query, 'req.query');
 

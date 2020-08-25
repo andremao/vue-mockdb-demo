@@ -5,7 +5,7 @@ module.exports = {
   requests: [
     {
       method: 'get',
-      url: '/goodses',
+      url: '/api/goodses',
       handler(req, res) {
         const { list } = service.getState();
 
